@@ -1,6 +1,11 @@
 import pandas as pd
 import psycopg
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # -------------------------------
 # Step 1: Load cleaned datasets
 # -------------------------------
@@ -13,11 +18,11 @@ df_malnutrition = pd.read_csv("final_malnutrition_data.csv")
 # -------------------------------
 
 conn = psycopg.connect(
-    host="localhost",
-    dbname="postgres",
-    user="postgres",        # change if needed
-    password="Aswin789vishnu",  # 🔴 replace with your password
-    port="5432"
+    host=os.getenv("DB_HOST"),
+    dbname=os.getenv("DB_NAME"),
+    user=os.getenv("DB_USER"),
+    password=os.getenv("DB_PASSWORD"),
+    port=os.getenv("DB_PORT")
 )
 
 cursor = conn.cursor()
